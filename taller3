@@ -1,3 +1,101 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Sep 13 15:40:57 2023
+
+@author: Usuario
+"""
+
+#Clase 2 - Conjuntos
+#Clasificando relaciones
+
+def productoCartesiano(X,Y):
+    vac = set()
+    for x in X:
+        for y in Y:
+            vac.add((x,y))
+    return vac
+
+X={1,2,3,4}
+Y={'a','b','c','d'}
+
+pc=productoCartesiano(X,Y)
+len(pc)
+print(pc)
+
+A={1,2,3}
+B={1,2,3}
+
+R=productoCartesiano(A,B)
+print(R)
+
+def dominioNatural(R):
+    dom = set()
+    for (x,y) in R:
+        dom.add(x)
+    return dom
+dominioNatural(pc)
+
+
+def imagen(R):
+    img=set()
+    for (x,y) in R:
+        img.add(y)
+    return img
+imagen(pc)
+
+
+def esSimetrica(R):
+    simetrica = True
+    for (x,y) in R:
+        if not (y,x) in R:
+            simetrica = False
+    return simetrica
+esSimetrica(pc)
+esSimetrica(R)
+
+
+#Chequear porque se deberia hacer mas simple
+def esReflexiva(R):
+    for (x,x) in R:
+        if not (x,x) in R:
+            refl = False
+        else:
+            refl = True
+    return refl
+    for (y,y) in R:
+        if not (y,y) in R:
+            refl = False
+        else:
+            refl = True
+    return refl
+esReflexiva(pc)
+esReflexiva(R)
+
+#%%
+def esTransitiva(R):
+    transitivo=False
+    for (x,y) in R:
+        for (w,z) in R:
+            if (x,z) in R and w==y: 
+                transitivo = True
+                display('opa')
+    return transitivo
+esTransitiva(R)
+esTransitiva(pc)
+
+def trans1(R):
+    for (x,y) in R and (x,z) in R: 
+        if (x,z) in R:
+            trans=True
+        else:
+            trans=False
+    return trans
+
+trans1(R)
+trans1(pc)
+trans1(pcc) 
+
+#%%
 def imagenx(R,x):
     img_x=set()
     etre='No está en la relación'
@@ -10,28 +108,57 @@ def imagenx(R,x):
     print(img_x)
 #imagenx(pc,'a')
 
-def transitividad(R):
-    x = dominioNatural(R)
-    for y in imagenx(R,x):
-        for z in imagenx(R,y):
+x = dominioNatural(pc)
+print(x)
+
+def transitividad(X):
+    x = dominioNatural(X)
+    for y in imagenx(X,x):
+        for (y,z) in R and (x,z) not in R:
             if z in imagenx(R,x):
                 transitividad = True
             else:
                 transitividad = False
     return transitividad
 
+transitividad(pc)
 transitividad(R)
 
+conj={(1,1),(1,1),(1,2)}
+print(conj)
+
+#%%
 def esAntisimetrica(R):
     for (x,y) in R:
         if (y,x) in R:
             if x==y:
                 return True
         return False
+#esAntisimetrica(R)
 
-A={1,2,3}
-B={1,2,3}
+def esEquivalencia(R):
+    if esSimetrica(R) == True:
+        if esReflexiva(R) == True: 
+            return 'R es de equivalencia'
+    return 'No es de equivalencia'
 
-R=productoCartesiano(A,B)
-print(R)
-esAntisimetrica(R)
+esEquivalencia(R)
+esEquivalencia(pc)
+
+#%%
+#Clases de equivalencia
+
+def clasedeEquivalencia(a,R):
+    X=dominioNatural(R)
+    res=set()
+    for b in X:
+        if (a,b) in R:
+            res.add(b)
+    return res
+clasedeEquivalencia(1, pc)
+
+#Ejemplo
+P=set(range(10))
+PxP=productoCartesiano(P,P)
+S=set([(x,y) for (x,y) in PxP if (y-x) % 7 == 0])
+clasedeEquivalencia(2, P)
