@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 26 23:02:12 2023
+
+@author: Usuario
+"""
+
+#RECURRENCIAS
+#Clase 4
+
+#%%
+def factorial(n):
+    if n==0:
+        return 1
+    return n * factorial(n-1)
+
+#factorial(3)
+#factorial(5)
+
+def dobleFactorial(n):
+    if n==0:
+        return 1
+    if n>=2:
+        return n * factorial(n-2)
+    if n==1:
+        return n, 'esta fuera del dominio'
+
+#dobleFactorial(4)
+#dobleFactorial(1)
+
+
+#La sucesion de Fibonacci es una serie infinita de numeros naturales que empieza
+#con un 0 y un 1, y continua agregando terminos que son la suma de los dos 
+#anteriores: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34...
+
+def fibonacci(n,n0=0,n1=1):
+    if n == 0:
+        return n0
+    if n == 1:
+        return n1
+    return fibonacci(n-1,n0,n1) + fibonacci(n-2,n0,n1)
+
+#fibonacci(0,n0=0,n1=1)
+
+#%%
+#Recurrencias un poco menos naturales
+
+def esPar(n):
+    if n%2==0:
+        return 'Es par'
+    else:
+        return 'Es impar'
+
+def esMultiploDe(n,m):
+    if n%m==0:
+        return n, 'es multiplo de', m
+    else:
+        return n, 'no es multiplo de', m
+    
+#esMultiploDe(8, 2)
+#esMultiploDe(7, 2)
+
+#Para conseguir el ultimo digito de un numero, convierto el numero en un string
+#asi puedo buscar con indices la posicion del digito.
+def ultimoDigito(n):
+    num=str(n)
+    return num[-1]
+
+#ultimoDigito(438)
+
+def sumaDeDigitos(n):
+    num=str(n)
+    s=0
+    for l in num:
+        s=s+int(l)
+    return s
+
+#sumaDeDigitos(4567)
+
+#%%
+#Algoritmo de la division
+def division(m,b):
+    r=m%b
+    q=int((m-r)/b)
+    return q,r
+
+#division(18, 4)
+
+#En python ya existe esta funcion, y se llama DIVMOD. 
+
+#%%
+#Recursion en listas
+def pertenece(x,L):
+    if L == []:
+        return False
+    return x==L[0] or pertenece(x,L[1:])
+
+pertenece(3, (1,2,4,5))
