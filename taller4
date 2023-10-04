@@ -95,4 +95,26 @@ def pertenece(x,L):
         return False
     return x==L[0] or pertenece(x,L[1:])
 
-pertenece(3, (1,2,4,5))
+pertenece(3, [1,2,3,4,5])
+
+
+def suma(lista):
+    suma=0
+    for i in range(len(lista)):
+        suma=suma+lista[i]
+    return suma
+
+l=[1,2,3,4,5,6]
+l2=[3,6,4,1,5,2,7]
+
+def maximo(lista):
+    maximo=lista[0]
+    for i in range(len(lista)):
+        if lista[i]>maximo:
+            maximo=lista[i]
+    return maximo
+
+def filtrar(func,lista):
+    res=[]
+    if func == True:
+        res.append(x)
