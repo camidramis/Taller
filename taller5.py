@@ -35,7 +35,6 @@ y_s=polinomioLagrange(x_s,nodos,valores)
 plt.plot(x_s,y_s,'-.g')
 
 
-
 #mat=np.array([[8,9,14,17,18,19,20.5,21.5,23,24,25,26],[265,285,346,417,438,495,524,540,643,693,744,780]])
 #print (nodos)
 #polinomioLagrange(8,26,nodos[0],nodos[1])
@@ -44,5 +43,25 @@ plt.plot(x_s,y_s,'-.g')
 #Graficar: evaluamos Xi vs Yi:
 
 #Algoritmo de Euclides
+
 def mcd(a,b):
+    while b: 
+        a, b = b, a%b
+    return a
+
+#mcd(7,2023)
+
+def sonCoprimos(a,b):
+    if mcd(a,b)==1:
+        print('Son coprimos')
+    else:
+        print('No son coprimos')
+
+sonCoprimos(7,2023)
+sonCoprimos(11, 17)
+
+#Algoritmo de Euclides extendido
+def emcd(a,b):
     
+
+#Congruencias
