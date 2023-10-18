@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Oct 18 09:28:48 2023
+
+@author: clinux01
+"""
+import matplotlib.pyplot as plt
+import numpy as np
+
+#CLASE 5
+#Descenso del gradiente
+
+def minimoUnimodal(a, b, funcion, e, itermax):
+    while a<b:
+        k=0
+        while (b-a)>e and k<itermax:
+            g=(b-a)/4
+            alpha = (a+b)/2 - g
+            beta = (a+b)/2 + g
+            if funcion(alpha)<funcion(beta):
+                b=beta
+            else:
+                a=alpha
+            k+=1
+        return a,b
+
+def mod(t):
+    return abs(t-2)
+
+def cuad(t):
+    return (t**2 - 3*t + 1)
+
+def log(t):
+    return(t*np.log(t))
+
+x1=minimoUnimodal(1,4,mod, 0.001, 50)
+x2=minimoUnimodal(1,3,cuad, 0.01, 25)
+x3=minimoUnimodal(0,2,log, 0.001, 25)
+
+def func1(t):
+    return(np.sqrt(t)-(3*t)+0.5*t**2)
+
+x4=minimoUnimodal(1,8,func1, 0.00001, 100)
+
+tup=([x1,x2,x3,x4])
+x=np.asarray(tup)
+plt.plot(x)
+
+
+#Derivadas y cocientes incrementales
+
+def derivada(g,t,h):
+    return ((g(t+h)-g(t))/h)
+
+def func2(x):
+    return x**2
+
+def func3(x):
+    return x**3
+
+derivada(func2,2,0.001)
+h=[(1/10**k) for k in range (0,21)]
+
+lista=[]
+for i in range(len(h)):
+    while h[i] > (1/10**21):
+        lista.append(derivada(func3, 5, h[i]))
+    return lista
+
