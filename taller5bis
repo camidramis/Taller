@@ -62,9 +62,41 @@ def func3(x):
 derivada(func2,2,0.001)
 h=[(1/10**k) for k in range (0,21)]
 
+def iterar():
+    lista=[]
+    for i in range(len(h)):
+        lista.append(derivada(func3,5,h[i]))
+    return lista
+
+iterar()
+print(len(iterar()))
+
+
+
+
+
+
+"""
 lista=[]
+lista.append(derivada(func3,5,h[0]))
+lista.append(derivada(func3,5,h[1]))
+lista.append(derivada(func3,5,h[2]))
+lista.append(derivada(func3,5,h[3]))
+lista.append(derivada(func3,5,h[4]))
+lista.append(derivada(func3,5,h[5]))
+lista.append(derivada(func3,5,h[6]))
+lista.append(derivada(func3,5,h[7]))
+lista.append(derivada(func3,5,h[8]))
+lista.append(derivada(func3,5,h[9]))
+lista.append(derivada(func3,5,h[10]))
+lista.append(derivada(func3,5,h[11]))
+
+lista[8]
+
+
 for i in range(len(h)):
     while h[i] > (1/10**21):
         lista.append(derivada(func3, 5, h[i]))
-    return lista
+return lista
 
+"""
