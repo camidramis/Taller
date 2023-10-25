@@ -71,10 +71,16 @@ def iterar():
 iterar()
 print(len(iterar()))
 
+#Centrada
+def derivadabis(g,t,h,metodo):
+    if metodo == 'centrada':
+        der=(g(t+h)-g(t-h))/(2*h)
+    else: 
+        der((g(t+h)-g(t))/h)
+    return der
 
-
-
-
+derivadabis(func2,2,0.0000001,'centrada')
+derivada(func2,2,0.0001)
 
 """
 lista=[]
@@ -100,3 +106,25 @@ for i in range(len(h)):
 return lista
 
 """
+
+#Gradientes
+
+def gradiente(f,x):
+    df=derivadabis(f,x,0.00001,'centrada')
+    return df
+
+gradiente(func3,2)
+gradiente(func2,2)
+
+
+#Mètodo del descenso del gradiente
+    
+def descensoGradiente(f,x0,kmax,ep):
+    if ep>0:
+        k=0
+        t=0
+        while k<kmax and (x1-x0)>e:
+            x1=x0-t*gradiente(f,x0)
+            phi0=f(x0)
+            phi1=f(x1)
+            if phi0<=phi1:
