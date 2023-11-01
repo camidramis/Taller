@@ -122,9 +122,31 @@ gradiente(func2,2)
 def descensoGradiente(f,x0,kmax,ep):
     if ep>0:
         k=0
-        t=0
+        t=1
         while k<kmax and (x1-x0)>e:
             x1=x0-t*gradiente(f,x0)
             phi0=f(x0)
             phi1=f(x1)
             if phi0<=phi1:
+                x0=x1
+                phi 
+                t=t*0.5
+            else: 
+
+def parabcirc(x,y):
+    return (x**2 + y**2)
+                
+def parabel(x,y):
+    return (x**2 + 25*y**2)
+
+#descensoGradiente(parabcirc)
+                
+#Clase 6: BILLAR ELIPTICO
+
+#Metodo de newton
+def metNewton(x0, func):
+    if derivada(func,x0,0.0001)!=0:
+        x1=x0-(func(x0)/derivada(func,x0,0.0001))
+    return x1
+
+metNewton(5,func2)
