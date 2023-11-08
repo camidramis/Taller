@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+#descensoGradiente(parabcirc)
+
+def derivadabis(g,t,h,metodo):
+    if metodo == 'centrada':
+        der=(g(t+h)-g(t-h))/(2*h)
+    else: 
+        der((g(t+h)-g(t))/h)
+    return der
+
+#Clase 6: BILLAR ELIPTICO
+
+p=[0.5,0.5]
+pos=np.array(p)
+vec=np.array([1/3,2/3])
+
+#Función elíptica
+def elip_func(a,b,x):
+    return x[0]**2/a**2+x[1]**2/b**2-1
+
+def recta(t,v):
+    return(pos+t*v)
+
+def h(a,b,t):
+    return(elip_func(a,b,recta(t)))
+
+def func1(t):
+    return(t**2)
+
+#Metodo de newton
+def metNewton(xi,f,kmax,ep):
+    if derivadabis(f,xi,0.001,'centrada')!=0:
+        k=0
+        while k<kmax:
+            xf=xi-f(xi)/derivadabis(f,xi,0.001,'centrada')
+            if f(xf)>ep:
+                xi=xf
+            else:
+                print(f(xf))
+    return xf
+
+metNewton(6,func1,50,0.1)
