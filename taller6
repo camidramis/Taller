@@ -1,13 +1,14 @@
+
 import math as mt
 #import numpy as np
 #import matplotlib.pyplot as plt
 
 
-def derivadabis(t,g,h,metodo):
+def derivadabis(u,g,h,metodo):
     if metodo == 'centrada':
-        der=(g(t+h)-g(t-h))/(2*h)
+        der=(g(u+h)-g(u-h))/(2*h)
     else: 
-        der((g(t+h)-g(t))/h)
+        der((g(u+h)-g(u))/h)
     return der
 
 def func1(t):
@@ -26,15 +27,16 @@ def func3(t):
 def elip_func(a,b,x):
     return x[0]**2/a**2+x[1]**2/b**2
 
-def recta(pos,t,v):
+def recta(p,t,v):
     vt=tuple(t*i for i in v)
-    x1=pos[0]+vt[0]
-    y1=pos[1]+vt[1]
+    x1=p[0]+vt[0]
+    y1=p[1]+vt[1]
     return(x1,y1)
 
 def comp(t):
     return(elip_func(a1,b1,recta(pos,t,vec)))
 
+#comp(3)
 
 #Metodo de newton
 def metNewton(xi,f,kmax,ep):
@@ -42,7 +44,7 @@ def metNewton(xi,f,kmax,ep):
         k=0
         xf=xi
         while k<kmax:
-            #x=xf
+            x=xf
             xf=xf-f(xi)/derivadabis(xi,f,0.00001,'centrada')
             k=k+1
             if f(xf)<ep:
@@ -62,7 +64,7 @@ b1=mt.sqrt(2)
 r1=recta(pos,5,vec)
 elip_func(a1,b1,r1)
 
-t_estrella, k = metNewton(t,comp,50,ep_pred)
+print(metNewton(mt.sqrt(2),comp,50,ep_pred))
 
 #Tengo que buscar el punto de impacto evaluando t* en la recta. 
 punto_impacto=recta(pos,t_estrella,vec)
