@@ -1,7 +1,13 @@
-import math as mt
-#import numpy as np
-#import matplotlib.pyplot as plt
 
+import math as mt
+import numpy as np
+import matplotlib.pyplot as plt
+
+#Defino mis condiciones
+pos=(1,1)
+vec=(3/5,4/5)
+a1=mt.sqrt(2)
+b1=mt.sqrt(2)
 
 def derivadabis(u,g,h,metodo):
     if metodo == 'centrada':
@@ -20,13 +26,18 @@ def func3(t):
     return (mt.sin(t))-t
 
 def norma(x):
-    return (mt.sqrt(x[0]**2+x[1]**2))
+    norm=(mt.sqrt(x[0]**2+x[1]**2))
+    return np.array([x[0]/norm,x[1]/norm])
 norma(vec)
+
+def normal(x):
+    gr=tang_elipse(a1,b1,x)/((tang_elipse(a1,b1,x)[0]**2 + tang_elipse(a1,b1,x)[1]**2)**.5)
+    return gr
 
 #Clase 6: BILLAR ELIPTICO
 
 #Función elíptica
-def elip_func(a,b,x):
+def elip_fun(a,b,x):
     return x[0]**2/a**2+x[1]**2/b**2
 
 def recta(p,t,v):
@@ -36,46 +47,52 @@ def recta(p,t,v):
     return(x1,y1)
 
 def comp(t):
-    return(elip_func(a1,b1,recta(pos,t,vec)))
+    return(elip_fun(a1,b1,recta(pos,t,vec)))
+
 comp(3)
 
 #Metodo de newton
 def metNewton(xi,f,kmax):
     k=0
     while k<kmax:
-        if derivadabis(xi,f,0.001,'centrada')!=0:
-            xf=xi-f(xi)/derivadabis(xi,f,0.001,'centrada')
+        if derivadabis(xi,f,0.01,'centrada')!=0:
+            xf=xi-f(xi)/derivadabis(xi,f,0.01,'centrada')
             xi=xf
             k=k+1
         else:
             return xf, k
     return xf, k
 
-#Pruebo si funciona con alguna funcion
-m,n=metNewton(3,func1,100)
-func1(m) #da un numero muy cercano a 0
-
-
-#Defino mis condiciones
-pos=(1,1)
-vec=(3/5,4/5)
-
-a1=mt.sqrt(2)
-b1=mt.sqrt(2)
-
-#Hago cuenta por cuenta para ver si usando el metodo me da igual. 
-#r1=recta(pos,5,vec)
-#elip_func(a1,b1,r1)
-#g=comp(5) #me dan iguales asi que esta bien la composicion.
-
 #Calculo mi t*
-t_estrella, reps = metNewton(8,comp,200)
+t_estrella, reps = metNewton(25,comp,750)
 
-#Tengo que buscar el punto de impacto evaluando t* en la recta. 
-punto_impacto=recta(pos,t_estrella,vec)
+#Calculo el punto de impacto evaluando t* en la recta
+p_impacto=recta(pos,t_estrella,vec)
 
 #Verifico evaluando en la elipse, se tiene que anular. 
-elip_func(a1,b1,punto_impacto) #me da cercano a cero 
+elip_fun(a1,b1,p_impacto) #me da cercano a cero 
 
 #Hallar el vector tangente
-def elip_func2(a,b,x):
+def tang_elipse(a,b,x):
+    x2=2*x[0]/a**2
+    y2=2*x[1]/b**2
+    return np.array([x2,y2])
+
+te=tang_elipse(a1,b1,p_impacto)
+norma(te)
+
+vec_T=tang_elipse(a1,b1,p_impacto)
+vec_T_norm=norma(vec_T)
+recta(p_impacto, t_estrella, vec_T_norm)
+
+#Pasamos a la reflexion de la bola sobre el borde luego de impactar
+def h_reflector(x,v):
+    x=np.array(x)
+    v=np.array(v)
+    norma_cuad=np.dot(v,v)
+    v_refl=x-2*np.dot(x,v)*v/norma_cuad
+    if np.dot(v_refl, tang_elipse(a1,b1,p_impacto))>0:
+        v_refl=-v_refl
+    return v_refl
+
+h_reflector(p_impacto,vec_T_norm)
