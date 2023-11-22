@@ -32,9 +32,20 @@ def metNewton(xi,f,kmax):
     return xf, k
 
 #Graficar la elipse:
-theta=np.linspace(-10, 10, 1000)
-a,b=2,3
-x=a*np.cos(theta)
-y=b*np.sin(theta)
+theta=np.linspace(0, 2*np.pi, 1000)
+c,d=5,3
+x=c*np.cos(theta)
+y=d*np.sin(theta)
 
-#Tengo que definir los focos dentro de la elpse
+#Tengo que definir los focos dentro de la elipse
+
+foco1,foco2=np.sqrt(c**2-d**2),-np.sqrt(c**2-d**2)
+
+plt.axes()
+plt.plot(x,y)
+plt.plot(foco1,0,'xk')
+plt.plot(foco2,0,'xk')
+
+
+
+#Luego 
